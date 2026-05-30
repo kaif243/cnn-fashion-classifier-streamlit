@@ -10,15 +10,14 @@ def train_model():
     X_test = X_test.reshape(-1, 28, 28, 1) / 255.0
 
     model = Sequential([
-        Conv2D(32, (3, 3), activation="relu", input_shape=(28, 28, 1)),
+        Conv2D(16, (3, 3), activation="relu", input_shape=(28, 28, 1)),
         MaxPooling2D(2, 2),
 
-        Conv2D(64, (3, 3), activation="relu"),
+        Conv2D(32, (3, 3), activation="relu"),
         MaxPooling2D(2, 2),
 
         Flatten(),
-
-        Dense(128, activation="relu"),
+        Dense(64, activation="relu"),
         Dense(10, activation="softmax")
     ])
 
@@ -31,8 +30,8 @@ def train_model():
     model.fit(
         X_train,
         y_train,
-        epochs=3,
-        validation_data=(X_test, y_test)
+        epochs=1,
+        verbose=0
     )
 
-    model.save("model/cnn_model.keras")
+    return model
