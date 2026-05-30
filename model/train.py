@@ -10,22 +10,22 @@ def train_model():
     X_test = X_test.reshape(-1, 28, 28, 1) / 255.0
 
     model = Sequential([
-        Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+        Conv2D(32, (3, 3), activation="relu", input_shape=(28, 28, 1)),
         MaxPooling2D(2, 2),
 
-        Conv2D(64, (3, 3), activation='relu'),
+        Conv2D(64, (3, 3), activation="relu"),
         MaxPooling2D(2, 2),
 
         Flatten(),
 
-        Dense(128, activation='relu'),
-        Dense(10, activation='softmax')
+        Dense(128, activation="relu"),
+        Dense(10, activation="softmax")
     ])
 
     model.compile(
-        optimizer='adam',
-        loss='sparse_categorical_crossentropy',
-        metrics=['accuracy']
+        optimizer="adam",
+        loss="sparse_categorical_crossentropy",
+        metrics=["accuracy"]
     )
 
     model.fit(
@@ -35,6 +35,4 @@ def train_model():
         validation_data=(X_test, y_test)
     )
 
-    model.save("model/cnn_model.h5")
-
-    return model
+    model.save("model/cnn_model.keras")

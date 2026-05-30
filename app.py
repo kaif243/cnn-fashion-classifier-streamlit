@@ -3,10 +3,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.datasets import fashion_mnist
 
-st.set_page_config(
-    page_title="CNN Fashion Classifier",
-    layout="wide"
-)
+st.set_page_config(page_title="CNN Fashion Classifier", layout="wide")
 
 st.title("Fashion Classification using CNN")
 
@@ -23,13 +20,12 @@ labels = [
     "Ankle Boot"
 ]
 
-model = load_model("model/cnn_model.h5", compile=False)
+model = load_model("model/cnn_model.keras")
 
 (_, _), (X_test, y_test) = fashion_mnist.load_data()
 
 X_eval = X_test.reshape(-1, 28, 28, 1) / 255.0
 
-# Manual Accuracy
 predictions = model.predict(X_eval, verbose=0)
 pred_classes = np.argmax(predictions, axis=1)
 
@@ -37,13 +33,7 @@ accuracy = np.mean(pred_classes == y_test)
 
 st.success(f"Model Accuracy: {accuracy:.4f}")
 
-# Image Selector
-index = st.slider(
-    "Select Test Image",
-    0,
-    len(X_test) - 1,
-    0
-)
+index = st.slider("Select Test Image", 0, len(X_test)-1, 0)
 
 image = X_test[index]
 
@@ -56,7 +46,6 @@ st.image(
 img = image.reshape(1, 28, 28, 1) / 255.0
 
 prediction = model.predict(img, verbose=0)
-
 predicted_class = np.argmax(prediction)
 
 st.success(f"Predicted: {labels[predicted_class]}")
